@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
 export function proxy(request) {
-  console.log("Middleware executed for:", request.url);
   return NextResponse.next();
 }
 
