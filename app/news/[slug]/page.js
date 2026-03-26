@@ -1,9 +1,15 @@
 import NewsItems from "@/components/news/news-items";
 import { DUMMY_NEWS } from "@/dummy-news";
+import { notFound } from "next/navigation";
 
 export default async function NewsPageDetails({ params }) {
   const { slug } = await params;
   const newsItem = DUMMY_NEWS.find((item) => item.slug === slug);
+
+  if (!newsItem) {
+    notFound();
+  }
+
   return (
     <article className="news-article">
       <header>
