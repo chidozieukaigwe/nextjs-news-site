@@ -1,8 +1,14 @@
+"use client";
 import { DUMMY_NEWS } from "@/dummy-news";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 
+/**
+ * Intercepting Routes in NextJs 13 allows us to intercept navigation to a specific route and render a different component instead. In this case, we are intercepting navigation to the /news/[slug]/image route and rendering a modal with the image instead of navigating to a new page.
+ */
 export default async function InterceptedImagePage({ params }) {
+  const router = useRouter();
+
   const { slug } = await params;
   const newsItem = DUMMY_NEWS.find((item) => item.slug === slug);
 
@@ -12,7 +18,7 @@ export default async function InterceptedImagePage({ params }) {
 
   return (
     <>
-      <div className="modal-backdrop" />
+      <div className="modal-backdrop" onClick={router.back} />
       <dialog open className="modal">
         <div className="fullscreen-image">
           <Image
